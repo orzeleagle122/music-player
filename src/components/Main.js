@@ -1,35 +1,36 @@
 import React from 'react';
-import styled from 'styled-components';
 import SearchSong from "./SearchSong";
 import Playlist from "./Playlist";
+import {Button, Container, Grid} from "@mui/material";
+import {makeStyles} from "@material-ui/core";
+
+const useStyles = makeStyles({
+    myButton: {
+        backgroundColor: 'orange'
+    }
+})
 
 const Main = () => {
+    const classes = useStyles();
+
     return (
-        <MainWrapper>
-            <Container>
-                <Playlist/>
-                <SearchSong/>
-
-            </Container>
-
-        </MainWrapper>
+        <Container>
+            <Grid container spacing={2}>
+                <Grid item xs={12} md={4}>
+                    <Playlist/>
+                </Grid>
+                <Grid item xs={12} md={8}>
+                    <SearchSong/>
+                    <Button variant="dashed">Przycisk</Button>
+                    <Button variant="outlined">Przycisk</Button>
+                    <Button variant="contained">Przycisk</Button>
+                    <Button>Przycisk</Button>
+                </Grid>
+            </Grid>
+        </Container>
     );
 };
 
 export default Main;
-
-const MainWrapper = styled.main`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-`;
-
-const Container = styled.div`
-  max-width: 1300px;
-  width: 100%;
-  display: flex;
-  margin-top: 50px;
-  justify-content: space-between;
-`;
 
 

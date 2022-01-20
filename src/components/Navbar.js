@@ -1,14 +1,33 @@
 import React from 'react';
 import styled from 'styled-components';
 import UseSwitchesCustom from "./Switcher";
+import {makeStyles} from "@material-ui/core";
+import clsx from "clsx";
+import {Container} from "@mui/material";
+
+const useStyles = makeStyles({
+    logo: {
+        '@media (max-width: 500px)': {
+            marginLeft: 10
+        }
+    },
+    asd: {
+        backgroundColor: "red"
+    }
+})
 
 const Navbar = () => {
+    const classes = useStyles();
+
     return (
         <NavbarWrapper>
             <Container>
-                <img src={`https://www.pgs-soft.com/app/themes/pgstemplate/img/new_img/logos/pgs-logo-dark.png`}
-                     alt={`logo`}/>
-                <UseSwitchesCustom/>
+                <NavbarContainer>
+                    <img className={clsx(classes.logo, classes.asd)}
+                         src={`https://www.pgs-soft.com/app/themes/pgstemplate/img/new_img/logos/pgs-logo-dark.png`}
+                         alt={`logo`}/>
+                    <UseSwitchesCustom/>
+                </NavbarContainer>
             </Container>
         </NavbarWrapper>
     );
@@ -25,9 +44,7 @@ const NavbarWrapper = styled.nav`
   align-items: center;
 `;
 
-const Container = styled.div`
-  max-width: 1300px;
-  width: 100%;
+const NavbarContainer = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;

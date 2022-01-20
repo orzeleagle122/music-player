@@ -29,8 +29,6 @@ const Playlist = () => {
 export default Playlist;
 
 const PlaylistWrapper = styled.div`
-  width: 30%;
-  min-height: 600px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
 
