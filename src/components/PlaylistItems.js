@@ -1,10 +1,11 @@
 import React from 'react';
 import styled from 'styled-components';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
-const PlaylistItems = () => {
+const PlaylistItems = ({setClickedPlaylist, name, songs}) => {
     return (
         <PlaylistItemWrapper>
-            <h3>Nazwa playlisty</h3>
+            <h3 onClick={() => setClickedPlaylist(songs)}>{name} <DeleteForeverIcon/></h3>
         </PlaylistItemWrapper>
     );
 };
@@ -20,4 +21,5 @@ const PlaylistItemWrapper = styled.div`
   border-bottom: 1px solid black;
   margin: 5px 0;
   padding: 10px 0 10px 10px;
+  cursor: pointer;
 `;

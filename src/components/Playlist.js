@@ -1,15 +1,26 @@
-import React from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import PlaylistItems from "./PlaylistItems";
 import AddIcon from '@material-ui/icons/Add';
+import {getAllPlaylist} from "../redux/slices/playlistSlice";
+import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import {useSelector} from "react-redux";
 
 const Playlist = () => {
+
+    const [clickedPlaylist, setClickedPlaylist] = useState([]);
+    const playlist = useSelector(getAllPlaylist);
 
     return (
         <PlaylistWrapper>
             <Content>
-                <h2>Your playlists </h2><AddIcon/>
-                {[1, 2, 3, 4, 5].map(item => <PlaylistItems key={item}/>)}
+                <h2>Your playlists </h2>{!clickedPlaylist.length ? <AddIcon/> :
+                <KeyboardBackspaceIcon onClick={() => setClickedPlaylist([])}/>}
+                {!clickedPlaylist.length ? <>{
+                    playlist.map(item => <PlaylistItems key={item.name} name={item.name} songs={item.songs}
+                                                        setClickedPlaylist={setClickedPlaylist}/>)
+                }</> : <>{clickedPlaylist.map(item => <span>{item.title}<br/></span>)}</>}
+
             </Content>
         </PlaylistWrapper>
     );
@@ -25,4 +36,8 @@ const PlaylistWrapper = styled.div`
 
 const Content = styled.div`
   padding: 20px 30px;
+  
+  svg{
+    cursor: pointer;
+  }
 `;
