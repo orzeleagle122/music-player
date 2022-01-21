@@ -1,14 +1,13 @@
 import React from 'react';
 import styled from 'styled-components';
 
-
-const SongItem = () => {
+const SongItem = ({song}) => {
     return (
         <SongItemWrapper>
-            <img src={`https://e-cdns-images.dzcdn.net/images/cover/e2b36a9fda865cb2e9ed1476b6291a7d/250x250-000000-80-0-0.jpg`} alt={`album`}/>
+            <img src={song.album.cover_medium} alt={`album`}/>
             <SongInfo>
-                <span>8 Mila</span>
-                <span>Eminem</span>
+                <span>{song.title}</span>
+                <span>{song.artist.name}</span>
             </SongInfo>
         </SongItemWrapper>
     );
