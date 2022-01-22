@@ -2,16 +2,21 @@ import React, {useState} from 'react';
 import styled from 'styled-components';
 import SongItem from "./SongItem";
 import {useDispatch, useSelector} from "react-redux";
-import {getSearchSong, moreSongActions, searchSongActions} from "../redux/slices/playlistSlice";
+import {
+    addSongToPlaylistAction,
+    getSearchSong,
+    moreSongActions,
+    searchSongActions
+} from "../redux/slices/playlistSlice";
 import {DelayInput} from 'react-delay-input';
+import AddIcon from '@mui/icons-material/Add';
 
 const SearchSong = () => {
 
     const [inputValue, setInputValue] = useState('');
-    const songList = useSelector(getSearchSong)
-
+    const songList = useSelector(getSearchSong);
     const dispatch = useDispatch();
-
+    const [selectedSong, setSelectedSong] = useState([]);
 
     return (
         <SongWrapper>
@@ -25,10 +30,18 @@ const SearchSong = () => {
                             minLength={2} delayTimeout={500}
 
                 />
-                {songList.map(item => <SongItem key={item.id} song={item}/>)}
-                {songList.length ?
-                    <button onClick={(inputValue) => dispatch(moreSongActions(inputValue))}>More</button> : null}
+                <form onSubmit={() => null}>
+                    {songList?.map(item => <SongItem key={item.id} song={item} setSelectedSong={setSelectedSong}/>)}
+
+                </form>
+                {songList?.length ?
+                    <button onClick={() => dispatch(moreSongActions())}>More</button> : null}
             </Content>
+            {selectedSong.length > 0 ? <AddButton><AddIcon onClick={() => {
+                dispatch(addSongToPlaylistAction(selectedSong));
+            }
+            }/></AddButton> : null}
+
         </SongWrapper>
     );
 };
@@ -39,11 +52,18 @@ const SongWrapper = styled.div`
   width: 60%;
   max-height: 600px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
-  overflow-x: auto;
+  position: relative;
 `;
 
 const Content = styled.div`
   padding: 20px 30px;
+  height: 100%;
+  overflow-x: auto;
+
+  form {
+    position: relative !important;
+    overflow-x: auto;
+  }
 
 
   input {
@@ -54,4 +74,18 @@ const Content = styled.div`
     box-sizing: border-box;
 
   }
+`;
+
+const AddButton = styled.button`
+  position: absolute;
+  color: white;
+  background-color: #FF7626;
+  bottom: 35px;
+  right: 45px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;

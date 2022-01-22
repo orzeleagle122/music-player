@@ -9,7 +9,6 @@ const Main = () => {
             <Container>
                 <Playlist/>
                 <SearchSong/>
-
             </Container>
 
         </MainWrapper>

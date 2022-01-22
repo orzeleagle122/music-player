@@ -3,9 +3,10 @@ import styled from 'styled-components';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
 const PlaylistItems = ({setClickedPlaylist, name, songs}) => {
+    console.log(songs);
     return (
         <PlaylistItemWrapper>
-            <h3 onClick={() => setClickedPlaylist(songs)}>{name} <DeleteForeverIcon/></h3>
+            {/*<h3 onClick={() => setClickedPlaylist(songs)}>{name} <DeleteForeverIcon/></h3>*/}
         </PlaylistItemWrapper>
     );
 };
