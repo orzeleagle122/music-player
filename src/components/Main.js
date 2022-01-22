@@ -1,9 +1,13 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import styled from 'styled-components';
 import SearchSong from "./SearchSong";
 import Playlist from "./Playlist";
+import {useSelector} from "react-redux";
+import {getAllMusicInfo} from "../redux/slices/playlistSlice";
 
 const Main = () => {
+
+
     return (
         <MainWrapper>
             <Container>

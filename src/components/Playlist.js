@@ -1,40 +1,37 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import PlaylistItems from "./PlaylistItems";
-import AddIcon from '@material-ui/icons/Add';
-import {getAllPlaylist, getClickedPlaylistSong} from "../redux/slices/playlistSlice";
-import KeyboardBackspaceIcon from '@material-ui/icons/KeyboardBackspace';
+import {getAllPlaylist} from "../redux/slices/playlistSlice";
 import {useSelector} from "react-redux";
+import AddIcon from '@mui/icons-material/Add';
+import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
 const Playlist = () => {
+    const [clickedPlaylist, setClickedPlaylist] = useState({});
+    const [showPlaylistSongs, setShowPlaylistSongs] = useState(true);
 
-    const [clickedPlaylist, setClickedPlaylist] = useState([]);
-    const [showPlaylistSongs, setShowPlaylistSongs] = useState(true)
+    const playlists = useSelector(getAllPlaylist);
 
-    const playlist = useSelector(getAllPlaylist);
-    const playlistSongs = useSelector(getClickedPlaylistSong);
-
-    console.log(clickedPlaylist);
-
-    const handleClickedOnPlaylist = () => {
+    const handleClickedOnPlaylist = (id) => {
         setShowPlaylistSongs(false);
-        setClickedPlaylist(playlistSongs);
+        const playlist = playlists.find(i => i.id === id);
+        setClickedPlaylist(playlist);
     }
-
 
     return (
         <PlaylistWrapper>
             <Content>
                 <h2>Your playlists </h2>
-                {/*{!clickedPlaylist.length ? <AddIcon/> :*/}
-                {/*    <KeyboardBackspaceIcon onClick={() => null}/>}*/}
+                {showPlaylistSongs ? <AddIcon/> :
+                    <ArrowBackIcon onClick={() => setShowPlaylistSongs(true)}/>}
 
                 {showPlaylistSongs ? <>{
-                    <>{playlist.map(item => <span key={item.id}
-                                                  onClick={handleClickedOnPlaylist}>{item.name}<br/></span>)}</>
+                        <>{playlists.map(item => <span key={item.id}
+                                                       onClick={() => handleClickedOnPlaylist(item.id)}>{item.name}<br/></span>)}</>
 
-                }</> : clickedPlaylist.map(item => <PlaylistItems key={item.name} name={item.name} songs={item.songs}
-                                                                  setClickedPlaylist={setClickedPlaylist}/>)}
+                    }</> :
+                    <PlaylistItems key={clickedPlaylist.name} name={clickedPlaylist.name} songs={clickedPlaylist.songs}
+                                   setClickedPlaylist={setClickedPlaylist}/>}
 
             </Content>
         </PlaylistWrapper>

@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import SongItem from "./SongItem";
 import {useDispatch, useSelector} from "react-redux";
@@ -17,6 +17,7 @@ const SearchSong = () => {
     const songList = useSelector(getSearchSong);
     const dispatch = useDispatch();
     const [selectedSong, setSelectedSong] = useState([]);
+
 
     return (
         <SongWrapper>
@@ -38,7 +39,7 @@ const SearchSong = () => {
                     <button onClick={() => dispatch(moreSongActions())}>More</button> : null}
             </Content>
             {selectedSong.length > 0 ? <AddButton><AddIcon onClick={() => {
-                dispatch(addSongToPlaylistAction(selectedSong));
+                dispatch(addSongToPlaylistAction(selectedSong, 1));
             }
             }/></AddButton> : null}
 

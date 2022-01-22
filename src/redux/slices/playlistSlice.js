@@ -9,22 +9,9 @@ const initialState = {
             songs: []
         },
         {
-            id:2,
+            id: 2,
             name: 'Hity Dody elektrody',
-            songs: [
-                {
-                    title: 'Kiedyś jak nie dziś',
-                    author: 'Doda'
-                },
-                {
-                    title: 'Vergin',
-                    author: 'Doda'
-                },
-                {
-                    title: 'Biały Miś',
-                    author: 'Doda'
-                }
-            ]
+            songs: []
         }
     ],
     searchList:
@@ -1043,18 +1030,10 @@ export const playlistSlice = createSlice({
             return {...state, searchList: more}
         },
         addSongToPlaylist: (state, action) => {
-            const newSongs = [...action.payload];
-            const newState = {
-                ...state,
-                playlist: [{
-                    id: 1,
-                    name: 'hip hop',
-                    song: [
-                        ...newSongs
-                    ]
-                }]
+            const playlist = state.playlist.find(item => item.id === action.payload.playlistId);
+            if (playlist) {
+                playlist.songs = [...playlist.songs, ...action.payload.selectedSong]
             }
-            return {...newState}
         }
     }
 })
@@ -1064,9 +1043,7 @@ export default playlistSlice.reducer;
 export const {searchSongs, moreSongs, addSongToPlaylist} = playlistSlice.actions;
 export const getAllPlaylist = state => state.music.playlist;
 export const getSearchSong = state => state.music.searchList;
-export const getClickedPlaylistSong = (state, playlist = 1) => {
-    return initialState.playlist.filter(item => item.id === playlist)
-};
+// export const getPlaylistById = state => state.music.playlist.find(i => i.id === state.payload.id);
 
 export const searchSongActions = (phrase) => async dispatch => {
     await axios.get('https://deezerdevs-deezer.p.rapidapi.com/search', {
@@ -1084,6 +1061,10 @@ export const searchSongActions = (phrase) => async dispatch => {
     }).catch(err => console.log(err));
 }
 
+// export const getPlayListByIdAction = (id) => async dispatch => {
+//     return dispatch(getPlaylistById(id));
+// }
+
 export const moreSongActions = () => async dispatch => {
     await axios.get('https://api.deezer.com/search?q=eminem&redirect_uri=http%253A%252F%252Fguardian.mashape.com%252Fcallback&index=25', {
         // params: {
@@ -1091,7 +1072,7 @@ export const moreSongActions = () => async dispatch => {
         // },
         headers: {
             'x-rapidapi-host': 'deezerdevs-deezer.p.rapidapi.com',
-            'x-rapidapi-key': 'c0b70ff419mshf6abc2a144dfa76p19dbe1jsn4a93647205b3'
+            'x-rapidapi-key': 'c0b70ff419mshf6abc2a144dfa76p19dbe1jsn4a93647205b3',
         }
     }).then(res => {
         const {data} = res;
@@ -1100,8 +1081,9 @@ export const moreSongActions = () => async dispatch => {
     }).catch(err => console.log(err));
 }
 
-export const addSongToPlaylistAction = (selectedSong) => async dispatch => {
-    dispatch(addSongToPlaylist(selectedSong));
+export const addSongToPlaylistAction = (selectedSong, playlistId = 1) => async dispatch => {
+
+    dispatch(addSongToPlaylist({selectedSong, playlistId}));
 }
 
 
