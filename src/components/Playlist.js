@@ -6,6 +6,7 @@ import {useSelector} from "react-redux";
 import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 
+// TODO: Playlista się nie aktualizuje po dodaniu piosenek
 const Playlist = () => {
     const [clickedPlaylist, setClickedPlaylist] = useState({});
     const [showPlaylistSongs, setShowPlaylistSongs] = useState(true);
