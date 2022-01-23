@@ -9,25 +9,59 @@ import {
 } from "../redux/slices/playlistSlice";
 import {DelayInput} from 'react-delay-input';
 import AddIcon from '@mui/icons-material/Add';
+import {getSearchedSongs} from "../api/getSearchedSongs";
+import Loader from "./Loader";
 
-const SearchSong = ({searchedSong, setSelectedSong, selectedSong, setPlaylists, setIsOpenModal}) => {
+const SearchSong = ({
+                        searchedSong,
+                        setSelectedSong,
+                        selectedSong,
+                        setIsOpenModal,
+                        setSearchSong,
+                        setIsLoading,
+                        isLoading,
+                        setErrorMessage,
+                        errorMessage
+                    }) => {
 
     const [inputValue, setInputValue] = useState('');
 
+    useEffect(() => {
+        let delayTypingSearch;
+        if (inputValue.length > 0) {
+            setIsLoading(true);
+            setErrorMessage("");
+            delayTypingSearch = setTimeout(() => {
+                getSearchedSongs(inputValue)
+                    .then(response => {
+                        if (response.data.hasOwnProperty('error')) {
+                            setErrorMessage(response.data.error.message);
+                            setSearchSong([]);
+                        } else {
+                            setSearchSong(response.data.data);
+                        }
+                    })
+                    .catch(err => console.log(err))
+                    .finally(() => setIsLoading(false));
+            }, 1000)
+        }
+        return () => clearTimeout(delayTypingSearch)
+    }, [inputValue])
     return (
         <SongWrapper>
             <Content>
                 <h2>Search songs</h2>
-                <DelayInput element={`input`} placeholder={`search...`} value={inputValue} onChange={(e) => {
+                <input placeholder={`search...`} value={inputValue} onChange={(e) => {
                     setInputValue(e.target.value);
-                    // console.log(e.target.value);
-                    // setTimeout(() => dispatch(searchSongActions(e.target.value)), 2000);
-                }}
-                            minLength={2} delayTimeout={500}
+                }}/>
 
-                />
+                {errorMessage.length > 0 ? <>{errorMessage}</> : null}
                 <form onSubmit={() => null}>
-                    {searchedSong?.map(item => <SongItem key={item.id} song={item} setSelectedSong={setSelectedSong}/>)}
+
+                    {isLoading
+                        ? <Loader/>
+                        : <>{searchedSong?.map(item => <SongItem key={item.id} song={item}
+                                                                 setSelectedSong={setSelectedSong}/>)}</>}
 
                 </form>
 
@@ -44,7 +78,7 @@ export default SearchSong;
 
 const SongWrapper = styled.div`
   width: 60%;
-  max-height: 600px;
+  height: 600px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   position: relative;
 `;

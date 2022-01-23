@@ -1,7 +1,7 @@
 import React, {useEffect} from 'react';
 import ReactDOM from "react-dom";
 import styled from 'styled-components';
-
+import CloseIcon from '@mui/icons-material/Close';
 
 const modalContainer = document.getElementById('modal-container')
 
@@ -23,8 +23,10 @@ const Modal = ({handleCloseModal, playlists, setPlaylists, selectedSong}) => {
             handleCloseModal();
         }}>
             <ModalWrapper onClick={(e) => e.stopPropagation()}>
-                <h2>Choose playlist</h2>
+                <CloseButton onClick={handleCloseModal}><CloseIcon/></CloseButton>
+                <h2>Choose playlist </h2>
                 <PlaylistWrapper>
+                    {playlists.length === 0 ? <h4>First create a playlist</h4> : null}
                     {playlists.map(item => {
                         return (
                             <span
@@ -53,7 +55,6 @@ const Modal = ({handleCloseModal, playlists, setPlaylists, selectedSong}) => {
                         )
                     })}
                 </PlaylistWrapper>
-                <button onClick={handleCloseModal}>close modal</button>
             </ModalWrapper>
         </OpacityBackground>,
         modalNode
@@ -100,5 +101,33 @@ const PlaylistWrapper = styled.div`
   justify-content: flex-start;
   width: 100%;
   margin-bottom: auto;
-  gap: 10px;
+
+  span {
+    cursor: pointer;
+    width: 100%;
+    border-bottom: 1px solid black;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    transition: 0.25s;
+
+    :hover {
+      background-color: aliceblue;
+      font-weight: bold;
+    }
+  }
+`;
+
+const CloseButton=styled.button`
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  color: white;
+  background-color: #FF7626;
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  top:20px;
+  right: 20px;
 `;

@@ -39,9 +39,15 @@ const SongItemWrapper = styled.div`
   align-items: center;
   justify-content: flex-start;
   border-bottom: 1px solid black;
-  margin: 5px 0;
   gap: 10px;
   padding: 10px 0 10px 10px;
+  transition: 0.25s;
+
+    &:hover{
+      background-color: aliceblue;
+      font-weight: bold;
+    }
+  }
 
   img {
     width: 50px;
@@ -65,5 +71,5 @@ const SongItemWrapper = styled.div`
 const SongInfo = styled.div`
   display: flex;
   flex-direction: column;
-  font-size: 10px;
+  font-size: 12px;
 `;

@@ -4,6 +4,8 @@ import PlaylistItems from "./PlaylistItems";
 import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {v4 as uuidv4} from 'uuid';
+import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import EditIcon from '@mui/icons-material/Edit';
 
 const Playlist = ({playlists, setPlaylists}) => {
     const [showPlaylistSongs, setShowPlaylistSongs] = useState(true);
@@ -41,9 +43,16 @@ const Playlist = ({playlists, setPlaylists}) => {
                                     return (
                                         <span key={item.id}
                                               onClick={() => handleClickedOnPlaylist(item.id)}
-                                              style={{cursor: "pointer"}}
                                         >
-                                        {index + 1}. {item.name}<br/>
+                                        {index + 1}. {item.name}
+                                            <ButtonWrapper onClick={(e) => e.stopPropagation()}>
+                                                <EditIcon/>
+                                                <DeleteForeverIcon onClick={() => {
+                                                    setPlaylists(prevState => {
+                                                        return prevState.filter(i => i.id !== item.id);
+                                                    })
+                                                }}/>
+                                            </ButtonWrapper>
                                     </span>
                                     )
                                 })}
@@ -64,7 +73,7 @@ const Playlist = ({playlists, setPlaylists}) => {
                                     />
                                 )
                             })}
-                            <AddButton><ArrowBackIcon onClick={() => setShowPlaylistSongs(true)}/></AddButton>
+                            <AddButton onClick={() => setShowPlaylistSongs(true)}><ArrowBackIcon /></AddButton>
                         </Wrapper>
                 }
 
@@ -78,12 +87,13 @@ export default Playlist;
 const PlaylistWrapper = styled.div`
   width: 30%;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  height: 600px;
 `;
 
 const Content = styled.div`
   padding: 20px 0 20px 30px;
   position: relative;
-  height: 541px;
+  height: 600px;
 
   h2 {
     margin-bottom: 20px;
@@ -96,14 +106,31 @@ const Content = styled.div`
 
 const Wrapper = styled.div`
   overflow: auto;
-  height: 100%;
+  height: 520px;
+
+  span {
+    cursor: pointer;
+    border-bottom: 1px solid black;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    width: 90%;
+    transition: 0.25s;
+    display: flex;
+    justify-content: space-between;
+
+    :hover {
+      background-color: aliceblue;
+      font-weight: bold;
+    }
+  }
 `;
 
 const AddButton = styled.button`
   position: absolute;
   color: white;
   background-color: #FF7626;
-  bottom: -25px;
+  bottom: 35px;
   right: 45px;
   width: 50px;
   height: 50px;
@@ -111,6 +138,12 @@ const AddButton = styled.button`
   border-radius: 50%;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+`;
+
+const ButtonWrapper = styled.div`
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
 
 

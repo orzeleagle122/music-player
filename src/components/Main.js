@@ -461,14 +461,12 @@ const initialSearchedSong = [
 ]
 
 const Main = () => {
-    const [playlists, setPlaylists] = useState(initialPlaylists);
-    const [searchedSong, setSearchSong] = useState(initialSearchedSong);
+    const [playlists, setPlaylists] = useState([]);
+    const [searchedSong, setSearchSong] = useState([]);
     const [selectedSong, setSelectedSong] = useState([]);
-    const [isOpenModal, setIsOpenModal] = useState(false)
-
-    useEffect(() => {
-
-    }, [playlists])
+    const [isOpenModal, setIsOpenModal] = useState(false);
+    const [isLoading, setIsLoading]=useState(false);
+    const [errorMessage,setErrorMessage]=useState("");
 
     return (
         <MainWrapper>
@@ -492,6 +490,11 @@ const Main = () => {
                     setPlaylists={setPlaylists}
                     playlists={playlists}
                     setIsOpenModal={setIsOpenModal}
+                    setSearchSong={setSearchSong}
+                    isLoading={isLoading}
+                    setIsLoading={setIsLoading}
+                    errorMessage={errorMessage}
+                    setErrorMessage={setErrorMessage}
                 />
             </Container>
 
