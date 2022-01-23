@@ -1,13 +1,19 @@
 import React from 'react';
 import styled from 'styled-components';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
+import {useDispatch} from "react-redux";
+import {deleteSongFromPlaylistAction} from "../redux/slices/playlistSlice";
 
-const PlaylistItems = ({setClickedPlaylist, name, songs}) => {
+const PlaylistItems = ({setClickedPlaylist, name, songs, clickedPlaylist}) => {
+
+    const dispatch = useDispatch();
 
     return (
         <PlaylistItemWrapper>
             {songs.map(item => (
-                <h3 key={item.id}>{item.title} <DeleteForeverIcon/></h3>
+                <span key={item.id}>{item.title} <DeleteForeverIcon onClick={() => {
+                    dispatch(deleteSongFromPlaylistAction(item.id, clickedPlaylist.id))
+                }}/></span>
             ))}
         </PlaylistItemWrapper>
     );
@@ -18,11 +24,20 @@ export default PlaylistItems;
 const PlaylistItemWrapper = styled.div`
   width: 100%;
   display: flex;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
   justify-content: flex-start;
-  width: 100%;
-  border-bottom: 1px solid black;
   margin: 5px 0;
-  padding: 10px 0 10px 10px;
   cursor: pointer;
+  height: 500px;
+  overflow-x: auto;
+
+  span {
+    border-bottom: 1px solid black;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
 `;

@@ -38,11 +38,9 @@ const SearchSong = () => {
                 {songList?.length ?
                     <button onClick={() => dispatch(moreSongActions())}>More</button> : null}
             </Content>
-            {selectedSong.length > 0 ? <AddButton><AddIcon onClick={() => {
+            {selectedSong.length > 0 ? <AddButton onClick={() => {
                 dispatch(addSongToPlaylistAction(selectedSong, 1));
-            }
-            }/></AddButton> : null}
-
+            }}><AddIcon/></AddButton> : null}
         </SongWrapper>
     );
 };

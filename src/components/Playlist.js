@@ -32,7 +32,7 @@ const Playlist = () => {
 
                     }</> :
                     <PlaylistItems key={clickedPlaylist.name} name={clickedPlaylist.name} songs={clickedPlaylist.songs}
-                                   setClickedPlaylist={setClickedPlaylist}/>}
+                                   setClickedPlaylist={setClickedPlaylist} clickedPlaylist={clickedPlaylist}/>}
 
             </Content>
         </PlaylistWrapper>
