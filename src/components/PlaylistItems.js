@@ -1,20 +1,34 @@
 import React from 'react';
 import styled from 'styled-components';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import {useDispatch} from "react-redux";
-import {deleteSongFromPlaylistAction} from "../redux/slices/playlistSlice";
 
-const PlaylistItems = ({setClickedPlaylist, name, songs, clickedPlaylist}) => {
-
-    const dispatch = useDispatch();
+const PlaylistItems = ({songOrder, title, id, setPlaylists, currentIdPlaylist}) => {
 
     return (
         <PlaylistItemWrapper>
-            {songs.map(item => (
-                <span key={item.id}>{item.title} <DeleteForeverIcon onClick={() => {
-                    dispatch(deleteSongFromPlaylistAction(item.id, clickedPlaylist.id))
-                }}/></span>
-            ))}
+            <span>{title} <DeleteForeverIcon onClick={() => {
+                setPlaylists((prevState) => {
+                    // return prevState.map(item => {
+                    //     if (item.id === currentIdPlaylist) {
+                    //         item.songs = item.songs.filter((song, index) => index !== songOrder)
+                    //     }
+                    //     return item;
+                    // })
+                    const newState = prevState.map(item => {
+                        if (item.id === currentIdPlaylist) {
+                            const filteredSongsInPlaylist = item.songs.filter(item => item.id !== id)
+                            return {
+                                ...item,
+                                songs: [
+                                    ...filteredSongsInPlaylist
+                                ]
+                            };
+                        }
+                        return item
+                    })
+                    return newState;
+                })
+            }}/></span>
         </PlaylistItemWrapper>
     );
 };
@@ -22,15 +36,7 @@ const PlaylistItems = ({setClickedPlaylist, name, songs, clickedPlaylist}) => {
 export default PlaylistItems;
 
 const PlaylistItemWrapper = styled.div`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  justify-content: flex-start;
-  margin: 5px 0;
-  cursor: pointer;
-  height: 500px;
-  overflow-x: auto;
+  padding-right: 30px;
 
   span {
     border-bottom: 1px solid black;

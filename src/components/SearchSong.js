@@ -1,7 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import SongItem from "./SongItem";
-import {useDispatch, useSelector} from "react-redux";
 import {
     addSongToPlaylistAction,
     getSearchSong,
@@ -11,13 +10,9 @@ import {
 import {DelayInput} from 'react-delay-input';
 import AddIcon from '@mui/icons-material/Add';
 
-const SearchSong = () => {
+const SearchSong = ({searchedSong, setSelectedSong, selectedSong, setPlaylists, setIsOpenModal}) => {
 
     const [inputValue, setInputValue] = useState('');
-    const songList = useSelector(getSearchSong);
-    const dispatch = useDispatch();
-    const [selectedSong, setSelectedSong] = useState([]);
-
 
     return (
         <SongWrapper>
@@ -26,20 +21,20 @@ const SearchSong = () => {
                 <DelayInput element={`input`} placeholder={`search...`} value={inputValue} onChange={(e) => {
                     setInputValue(e.target.value);
                     // console.log(e.target.value);
-                    setTimeout(() => dispatch(searchSongActions(e.target.value)), 2000);
+                    // setTimeout(() => dispatch(searchSongActions(e.target.value)), 2000);
                 }}
                             minLength={2} delayTimeout={500}
 
                 />
                 <form onSubmit={() => null}>
-                    {songList?.map(item => <SongItem key={item.id} song={item} setSelectedSong={setSelectedSong}/>)}
+                    {searchedSong?.map(item => <SongItem key={item.id} song={item} setSelectedSong={setSelectedSong}/>)}
 
                 </form>
-                {songList?.length ?
-                    <button onClick={() => dispatch(moreSongActions())}>More</button> : null}
+
             </Content>
             {selectedSong.length > 0 ? <AddButton onClick={() => {
-                dispatch(addSongToPlaylistAction(selectedSong, 1));
+                setIsOpenModal(true);
+
             }}><AddIcon/></AddButton> : null}
         </SongWrapper>
     );

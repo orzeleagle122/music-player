@@ -38,7 +38,6 @@ const SongItemWrapper = styled.div`
   display: flex;
   align-items: center;
   justify-content: flex-start;
-  width: 100%;
   border-bottom: 1px solid black;
   margin: 5px 0;
   gap: 10px;

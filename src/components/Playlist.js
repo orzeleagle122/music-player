@@ -1,38 +1,72 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import styled from 'styled-components';
 import PlaylistItems from "./PlaylistItems";
-import {getAllPlaylist} from "../redux/slices/playlistSlice";
-import {useSelector} from "react-redux";
 import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
+import {v4 as uuidv4} from 'uuid';
 
-// TODO: Playlista się nie aktualizuje po dodaniu piosenek
-const Playlist = () => {
-    const [clickedPlaylist, setClickedPlaylist] = useState({});
+const Playlist = ({playlists, setPlaylists}) => {
     const [showPlaylistSongs, setShowPlaylistSongs] = useState(true);
-
-    const playlists = useSelector(getAllPlaylist);
+    const [currentIdPlaylist, setCurrentIdPlaylist] = useState();
 
     const handleClickedOnPlaylist = (id) => {
         setShowPlaylistSongs(false);
-        const playlist = playlists.find(i => i.id === id);
-        setClickedPlaylist(playlist);
+        setCurrentIdPlaylist(id);
+    }
+
+    const handleAddNewPlaylist = () => {
+        setPlaylists(prevState => {
+            return [
+                ...prevState,
+                {
+                    id: uuidv4(),
+                    name: `New playlist ${prevState.length + 1}`,
+                    songs: []
+                }
+            ]
+        })
     }
 
     return (
         <PlaylistWrapper>
             <Content>
                 <h2>Your playlists </h2>
-                {showPlaylistSongs ? <AddIcon/> :
-                    <ArrowBackIcon onClick={() => setShowPlaylistSongs(true)}/>}
 
-                {showPlaylistSongs ? <>{
-                        <>{playlists.map(item => <span key={item.id}
-                                                       onClick={() => handleClickedOnPlaylist(item.id)}>{item.name}<br/></span>)}</>
-
-                    }</> :
-                    <PlaylistItems key={clickedPlaylist.name} name={clickedPlaylist.name} songs={clickedPlaylist.songs}
-                                   setClickedPlaylist={setClickedPlaylist} clickedPlaylist={clickedPlaylist}/>}
+                {
+                    showPlaylistSongs
+                        ?
+                        <>
+                            <Wrapper>
+                                {playlists.map((item, index) => {
+                                    return (
+                                        <span key={item.id}
+                                              onClick={() => handleClickedOnPlaylist(item.id)}
+                                              style={{cursor: "pointer"}}
+                                        >
+                                        {index + 1}. {item.name}<br/>
+                                    </span>
+                                    )
+                                })}
+                            </Wrapper>
+                            <AddButton><AddIcon onClick={handleAddNewPlaylist}/></AddButton>
+                        </>
+                        :
+                        <Wrapper>
+                            {playlists.find(item => item.id === currentIdPlaylist).songs.map((item, index) => {
+                                return (
+                                    <PlaylistItems
+                                        key={item.id}
+                                        // songOrder={index}
+                                        title={item.title}
+                                        id={item.id}
+                                        setPlaylists={setPlaylists}
+                                        currentIdPlaylist={currentIdPlaylist}
+                                    />
+                                )
+                            })}
+                            <AddButton><ArrowBackIcon onClick={() => setShowPlaylistSongs(true)}/></AddButton>
+                        </Wrapper>
+                }
 
             </Content>
         </PlaylistWrapper>
@@ -43,16 +77,40 @@ export default Playlist;
 
 const PlaylistWrapper = styled.div`
   width: 30%;
-  min-height: 600px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
 
 const Content = styled.div`
-  padding: 20px 30px;
+  padding: 20px 0 20px 30px;
+  position: relative;
+  height: 541px;
+
+  h2 {
+    margin-bottom: 20px;
+  }
 
   svg {
     cursor: pointer;
   }
+`;
+
+const Wrapper = styled.div`
+  overflow: auto;
+  height: 100%;
+`;
+
+const AddButton = styled.button`
+  position: absolute;
+  color: white;
+  background-color: #FF7626;
+  bottom: -25px;
+  right: 45px;
+  width: 50px;
+  height: 50px;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 `;
 
 
