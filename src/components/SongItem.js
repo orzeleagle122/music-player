@@ -43,33 +43,44 @@ const SongItemWrapper = styled.div`
   padding: 10px 0 10px 10px;
   transition: 0.25s;
 
-    &:hover{
-      background-color: aliceblue;
-      font-weight: bold;
-    }
+  &:hover {
+    background-color: ${({theme}) => theme.toggleBorder};
+    font-weight: bold;
   }
+}
 
-  img {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-  }
+img {
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: inherit;
+}
 
-  label {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    gap: 20px;
-    width: 100%;
-  }
+label {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  gap: 20px;
+  width: 100%;
+  background-color: inherit;
+}
 
-  input[type="checkbox"], input[type="checkbox"]:checked {
-    width: 20px;
-  }
-`
+input[type="checkbox"], input[type="checkbox"]:checked {
+  width: 20px;
+  
+}
+
+
+
+`;
 
 const SongInfo = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 12px;
+  background-color: inherit;
+
+  span {
+    background-color: inherit;
+  }
 `;

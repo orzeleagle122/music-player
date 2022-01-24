@@ -45,6 +45,7 @@ const Modal = ({handleCloseModal, playlists, setPlaylists, selectedSong}) => {
                                             }
                                             return i
                                         })
+                                        localStorage.setItem("playlists", JSON.stringify(newState));
                                         return newState;
                                     });
                                     handleCloseModal();
@@ -92,6 +93,12 @@ const ModalWrapper = styled.div`
   gap: 10px;
   align-items: center;
   overflow: auto;
+  background-color: ${({theme}) => theme.body};
+
+  @media only screen and (max-width: 600px){
+    width: 100%;
+    height: 100%;    
+  }
 `;
 
 const PlaylistWrapper = styled.div`
@@ -112,13 +119,13 @@ const PlaylistWrapper = styled.div`
     transition: 0.25s;
 
     :hover {
-      background-color: aliceblue;
+      background-color: ${({theme}) => theme.toggleBorder};
       font-weight: bold;
     }
   }
 `;
 
-const CloseButton=styled.button`
+const CloseButton = styled.button`
   border: none;
   border-radius: 50%;
   cursor: pointer;
@@ -128,6 +135,16 @@ const CloseButton=styled.button`
   width: 50px;
   height: 50px;
   position: absolute;
-  top:20px;
+  top: 20px;
   right: 20px;
+
+  @media only screen and (max-width: 600px){
+    width: 35px;
+    height: 35px;
+  }
+
+  svg {
+    background-color: inherit;
+    color: ${({theme}) => theme.text};
+  }
 `;

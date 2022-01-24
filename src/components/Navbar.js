@@ -1,14 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import UseSwitchesCustom from "./Switcher";
+import FlashlightOnIcon from '@mui/icons-material/FlashlightOn';
+import FlashlightOffIcon from '@mui/icons-material/FlashlightOff';
 
-const Navbar = () => {
+const Navbar = ({theme,themeToggler}) => {
     return (
         <NavbarWrapper>
             <Container>
-                <img src={`https://www.pgs-soft.com/app/themes/pgstemplate/img/new_img/logos/pgs-logo-dark.png`}
-                     alt={`logo`}/>
-                <UseSwitchesCustom/>
+                {/*<img src={`https://www.pgs-soft.com/app/themes/pgstemplate/img/new_img/logos/pgs-logo-dark.png`}*/}
+                {/*     alt={`logo`}/>*/}
+                <Wrapper onClick={themeToggler}>
+                {theme==='light'?<FlashlightOffIcon/>:<FlashlightOnIcon/>}
+                </Wrapper>
             </Container>
         </NavbarWrapper>
     );
@@ -31,4 +35,21 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  background-color: inherit;
+  
+  img {
+    background-color: inherit;
+  }
+  
+  @media screen and (max-width: 1300px){
+    padding: 0 25px 0 25px;
+  }
+  
+`;
+
+const Wrapper=styled.div`
+  background-color: inherit;
+  button{
+    background-color: inherit;
+  }
 `;

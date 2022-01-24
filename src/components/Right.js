@@ -1,18 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import styled from 'styled-components';
 import SongItem from "./SongItem";
-import {
-    addSongToPlaylistAction,
-    getSearchSong,
-    moreSongActions,
-    searchSongActions
-} from "../redux/slices/playlistSlice";
-import {DelayInput} from 'react-delay-input';
 import AddIcon from '@mui/icons-material/Add';
 import {getSearchedSongs} from "../api/getSearchedSongs";
 import Loader from "./Loader";
 
-const SearchSong = ({
+const Right = ({
                         searchedSong,
                         setSelectedSong,
                         selectedSong,
@@ -46,7 +39,9 @@ const SearchSong = ({
             }, 1000)
         }
         return () => clearTimeout(delayTypingSearch)
-    }, [inputValue])
+    }, [inputValue]);
+
+
     return (
         <SongWrapper>
             <Content>
@@ -74,13 +69,22 @@ const SearchSong = ({
     );
 };
 
-export default SearchSong;
+export default Right;
 
 const SongWrapper = styled.div`
   width: 60%;
   height: 600px;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   position: relative;
+
+  @media screen and (max-width: 1000px){
+    width: 50%;
+  }
+
+  @media screen and (max-width: 600px){
+    height: 300px;
+    width: 90%;
+  }
 `;
 
 const Content = styled.div`
@@ -91,6 +95,7 @@ const Content = styled.div`
   form {
     position: relative !important;
     overflow-x: auto;
+
   }
 
 
@@ -116,4 +121,9 @@ const AddButton = styled.button`
   border-radius: 50%;
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+
+  svg{
+    background-color: inherit;
+    color: ${({theme})=>theme.text};
+  }
 `;

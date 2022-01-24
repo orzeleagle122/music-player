@@ -26,6 +26,7 @@ const PlaylistItems = ({songOrder, title, id, setPlaylists, currentIdPlaylist}) 
                         }
                         return item
                     })
+                    localStorage.setItem("playlists", JSON.stringify(newState));
                     return newState;
                 })
             }}/></span>
@@ -36,7 +37,7 @@ const PlaylistItems = ({songOrder, title, id, setPlaylists, currentIdPlaylist}) 
 export default PlaylistItems;
 
 const PlaylistItemWrapper = styled.div`
-  padding-right: 30px;
+  width: 100%;
 
   span {
     border-bottom: 1px solid black;
