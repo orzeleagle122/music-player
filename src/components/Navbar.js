@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import UseSwitchesCustom from "./Switcher";
 import FlashlightOnIcon from '@mui/icons-material/FlashlightOn';
 import FlashlightOffIcon from '@mui/icons-material/FlashlightOff';
 
@@ -8,8 +7,8 @@ const Navbar = ({theme,themeToggler}) => {
     return (
         <NavbarWrapper>
             <Container>
-                {/*<img src={`https://www.pgs-soft.com/app/themes/pgstemplate/img/new_img/logos/pgs-logo-dark.png`}*/}
-                {/*     alt={`logo`}/>*/}
+                <img src={`https://www.pgs-soft.com/app/themes/pgstemplate/img/new_img/logos/pgs-logo-dark.png`}
+                     alt={`logo`}/>
                 <Wrapper onClick={themeToggler}>
                 {theme==='light'?<FlashlightOffIcon/>:<FlashlightOnIcon/>}
                 </Wrapper>

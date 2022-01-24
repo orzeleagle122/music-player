@@ -1,9 +1,8 @@
-import logo from './logo.svg';
 import './App.css';
 import {GlobalStyle} from "./styles/globalStyle";
 import Navbar from "./components/Navbar";
 import Main from "./components/Main";
-import {lightTheme, darkTheme} from './styles/theme';
+import {darkTheme, lightTheme} from './styles/theme';
 import {useEffect, useState} from "react";
 import {ThemeProvider} from "styled-components";
 

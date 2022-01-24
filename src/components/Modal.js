@@ -121,7 +121,7 @@ const PlaylistWrapper = styled.div`
     :hover {
       background-color: ${({theme}) => theme.toggleBorder};
       font-weight: bold;
-    }
+    }ó
   }
 `;
 

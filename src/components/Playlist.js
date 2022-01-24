@@ -22,7 +22,20 @@ const Playlist = ({item, handleClickedOnPlaylist, setPlaylists}) => {
 
                 {!isEditing
                     ? <EditIcon onClick={() => setIsEditing(prevState => !prevState)}/>
-                    : <DoneOutlineIcon onClick={() => setIsEditing(prevState => !prevState)}/>
+                    : <DoneOutlineIcon onClick={() => {
+                        setPlaylists(prevState => {
+                            const newState = prevState.map(i => {
+                                if (i.id === item.id) {
+                                    i.name = inputValue;
+                                }
+                                return i;
+                            })
+                            localStorage.setItem("playlists", JSON.stringify(newState));
+                            return newState;
+                        })
+                        setIsEditing(prevState => !prevState);
+                    }
+                    }/>
                 }
 
                 <DeleteForeverIcon onClick={() => {

@@ -4,8 +4,6 @@ import PlaylistItems from "./PlaylistItems";
 import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {v4 as uuidv4} from 'uuid';
-import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
-import EditIcon from '@mui/icons-material/Edit';
 import Playlist from "./Playlist";
 
 const Left = ({playlists, setPlaylists}) => {
@@ -111,7 +109,10 @@ const Content = styled.div`
 
 const Wrapper = styled.div`
 
-  //height: 520px;
+  input {
+    height: 35px;
+    width: 100%;
+  }
 
   span {
     cursor: pointer;

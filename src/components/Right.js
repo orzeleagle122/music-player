@@ -6,16 +6,16 @@ import {getSearchedSongs} from "../api/getSearchedSongs";
 import Loader from "./Loader";
 
 const Right = ({
-                        searchedSong,
-                        setSelectedSong,
-                        selectedSong,
-                        setIsOpenModal,
-                        setSearchSong,
-                        setIsLoading,
-                        isLoading,
-                        setErrorMessage,
-                        errorMessage
-                    }) => {
+                   searchedSong,
+                   setSelectedSong,
+                   selectedSong,
+                   setIsOpenModal,
+                   setSearchSong,
+                   setIsLoading,
+                   isLoading,
+                   setErrorMessage,
+                   errorMessage
+               }) => {
 
     const [inputValue, setInputValue] = useState('');
 
@@ -77,11 +77,11 @@ const SongWrapper = styled.div`
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
   position: relative;
 
-  @media screen and (max-width: 1000px){
+  @media screen and (max-width: 1000px) {
     width: 50%;
   }
 
-  @media screen and (max-width: 600px){
+  @media screen and (max-width: 600px) {
     height: 300px;
     width: 90%;
   }
@@ -122,8 +122,8 @@ const AddButton = styled.button`
   cursor: pointer;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
 
-  svg{
+  svg {
     background-color: inherit;
-    color: ${({theme})=>theme.text};
+    color: ${({theme}) => theme.text};
   }
 `;
