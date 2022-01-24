@@ -6,6 +6,7 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {v4 as uuidv4} from 'uuid';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
+import Playlist from "./Playlist";
 
 const Left = ({playlists, setPlaylists}) => {
     const [showPlaylistSongs, setShowPlaylistSongs] = useState(true);
@@ -44,26 +45,9 @@ const Left = ({playlists, setPlaylists}) => {
                     showPlaylistSongs
                         ?
                         <Wrapper>
-                            {playlists.map((item, index) => {
-                                return (
-                                    <span key={item.id}
-                                          onClick={() => handleClickedOnPlaylist(item.id)}
-                                    >
-                                        {index + 1}.
-                                        <input value={item.name} onClick={(e) => e.stopPropagation()}/>
-                                        <ButtonWrapper onClick={(e) => e.stopPropagation()}>
-                                                <EditIcon/>
-                                                <DeleteForeverIcon onClick={() => {
-                                                    setPlaylists(prevState => {
-                                                        const newPlaylists = prevState.filter(i => i.id !== item.id)
-                                                        localStorage.setItem("playlists", JSON.stringify(newPlaylists));
-                                                        return newPlaylists;
-                                                    })
-                                                }}/>
-                                            </ButtonWrapper>
-                                    </span>
-                                )
-                            })}
+                            {playlists.map((item, index) => <Playlist key={item.id} item={item}
+                                                                      handleClickedOnPlaylist={handleClickedOnPlaylist}
+                                                                      setPlaylists={setPlaylists}/>)}
                         </Wrapper>
                         :
                         <Wrapper>
@@ -164,13 +148,7 @@ const AddButton = styled.button`
   }
 `;
 
-const ButtonWrapper = styled.div`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: inherit;
 
-`;
 
 
 
