@@ -14,7 +14,11 @@ export const GlobalStyle = createGlobalStyle`
     background-color: inherit;
   }
   
-  .__react-alert__ {
-    width: 1000px;
+  #__react-alert__{
+    div {
+      background-color: transparent;
+    }
+    
   }
+
 `;

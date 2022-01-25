@@ -5,6 +5,7 @@ import AddIcon from '@mui/icons-material/Add';
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {v4 as uuidv4} from 'uuid';
 import Playlist from "./Playlist";
+import {useAlert} from "react-alert";
 
 const randomStr = (len) => {
     let ans = '';
@@ -19,6 +20,7 @@ const randomStr = (len) => {
 const Left = ({playlists, setPlaylists}) => {
     const [showPlaylistSongs, setShowPlaylistSongs] = useState(true);
     const [currentIdPlaylist, setCurrentIdPlaylist] = useState();
+    const alert = useAlert();
 
     const handleClickedOnPlaylist = (id) => {
         setShowPlaylistSongs(false);
@@ -38,6 +40,7 @@ const Left = ({playlists, setPlaylists}) => {
             localStorage.setItem("playlists", JSON.stringify(newPlaylists));
             return newPlaylists
         });
+        alert.success('Added new playlist!')
     }
 
     const playlistName = playlists.find(item => item.id === currentIdPlaylist);
@@ -53,9 +56,9 @@ const Left = ({playlists, setPlaylists}) => {
                     showPlaylistSongs
                         ?
                         <Wrapper>
-                            {playlists.map((item, index) => <Playlist key={item.id} item={item}
-                                                                      handleClickedOnPlaylist={handleClickedOnPlaylist}
-                                                                      setPlaylists={setPlaylists}/>)}
+                            {playlists.map((item) => <Playlist key={item.id} item={item}
+                                                               handleClickedOnPlaylist={handleClickedOnPlaylist}
+                                                               setPlaylists={setPlaylists}/>)}
                         </Wrapper>
                         :
                         <Wrapper>

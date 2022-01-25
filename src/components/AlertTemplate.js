@@ -14,7 +14,6 @@ export const AlertTemplate = ({style, options, message}) => (
     </AlertWrapper>
 );
 
-
 const AlertWrapper = styled.div`
   border: 1px solid black;
   display: flex;
@@ -22,4 +21,6 @@ const AlertWrapper = styled.div`
   align-items: center;
   padding: 10px 20px;
   gap: 15px;
+  background-color: ${({theme})=>theme.body} !important;
+  border-radius: 16px;
 `

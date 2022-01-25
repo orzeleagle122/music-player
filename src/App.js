@@ -5,6 +5,15 @@ import Main from "./components/Main";
 import {darkTheme, lightTheme} from './styles/theme';
 import React, {useEffect, useState} from "react";
 import {ThemeProvider} from "styled-components";
+import {transitions, positions, Provider as AlertProvider} from 'react-alert'
+import {AlertTemplate} from "./components/AlertTemplate";
+
+const options = {
+    position: positions.BOTTOM_CENTER,
+    timeout: 2000,
+    offset: '10px',
+    transition: transitions.SCALE
+}
 
 function App() {
 
@@ -25,7 +34,9 @@ function App() {
             <ThemeProvider theme={theme === 'light' ? lightTheme : darkTheme}>
                 <GlobalStyle/>
                 <Navbar theme={theme} themeToggler={themeToggler}/>
-                <Main/>
+                <AlertProvider template={AlertTemplate} {...options}>
+                    <Main/>
+                </AlertProvider>
             </ThemeProvider>
         </>
     );

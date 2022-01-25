@@ -39,7 +39,7 @@ const Right = ({
             }, 1000)
         }
         return () => clearTimeout(delayTypingSearch)
-    }, [inputValue, setErrorMessage, setIsLoading, setSearchSong, setIsLoading]);
+    }, [inputValue, setErrorMessage, setIsLoading, setSearchSong]);
 
 
     return (

@@ -3,11 +3,13 @@ import EditIcon from "@mui/icons-material/Edit";
 import DeleteForeverIcon from "@material-ui/icons/DeleteForever";
 import styled from "styled-components";
 import DoneOutlineIcon from '@mui/icons-material/DoneOutline';
+import {useAlert} from "react-alert";
 
 const Playlist = ({item, handleClickedOnPlaylist, setPlaylists}) => {
 
     const [inputValue, setInputValue] = useState(`${item.name}`);
     const [isEditing, setIsEditing] = useState(false);
+    const alert=useAlert();
 
     return (
         <span onClick={() => handleClickedOnPlaylist(item.id)}>
@@ -34,6 +36,7 @@ const Playlist = ({item, handleClickedOnPlaylist, setPlaylists}) => {
                             return newState;
                         })
                         setIsEditing(prevState => !prevState);
+                        alert.success('Name is changed!')
                     }
                     }/>
                 }
@@ -44,6 +47,7 @@ const Playlist = ({item, handleClickedOnPlaylist, setPlaylists}) => {
                         localStorage.setItem("playlists", JSON.stringify(newPlaylists));
                         return newPlaylists;
                     })
+                    alert.info('Deleted playlist!');
                 }}/>
                </ButtonWrapper>
             </span>
