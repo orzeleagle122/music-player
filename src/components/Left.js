@@ -6,6 +6,16 @@ import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import {v4 as uuidv4} from 'uuid';
 import Playlist from "./Playlist";
 
+const randomStr = (len) => {
+    let ans = '';
+    let arr = '1234567890qwertyuioplkjhgfdsazxcvbnm';
+    for (let i = len; i > 0; i--) {
+        ans +=
+            arr[Math.floor(Math.random() * arr.length)];
+    }
+    return ans;
+}
+
 const Left = ({playlists, setPlaylists}) => {
     const [showPlaylistSongs, setShowPlaylistSongs] = useState(true);
     const [currentIdPlaylist, setCurrentIdPlaylist] = useState();
@@ -21,7 +31,7 @@ const Left = ({playlists, setPlaylists}) => {
                 ...prevState,
                 {
                     id: uuidv4(),
-                    name: `New playlist ${prevState.length + 1}`,
+                    name: `New playlist ${randomStr(4)}`,
                     songs: []
                 }
             ];
@@ -49,11 +59,11 @@ const Left = ({playlists, setPlaylists}) => {
                         </Wrapper>
                         :
                         <Wrapper>
-                            {playlists.find(item => item.id === currentIdPlaylist).songs.map((item, index) => {
+                            {playlists.find(item => item.id === currentIdPlaylist).songs.map((item) => {
                                 return (
                                     <PlaylistItems
-                                        key={item.id}
-                                        // songOrder={index}
+                                        key={item.idWhenDuplicate}
+                                        idWhenDuplicate={item.idWhenDuplicate}
                                         title={item.title}
                                         id={item.id}
                                         setPlaylists={setPlaylists}

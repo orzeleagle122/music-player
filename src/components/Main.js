@@ -51,7 +51,6 @@ const Main = () => {
                     setErrorMessage={setErrorMessage}
                 />
             </Container>
-
         </MainWrapper>
     );
 };

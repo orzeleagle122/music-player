@@ -3,7 +3,7 @@ import {GlobalStyle} from "./styles/globalStyle";
 import Navbar from "./components/Navbar";
 import Main from "./components/Main";
 import {darkTheme, lightTheme} from './styles/theme';
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {ThemeProvider} from "styled-components";
 
 function App() {

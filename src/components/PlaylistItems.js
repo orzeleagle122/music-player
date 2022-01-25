@@ -2,21 +2,15 @@ import React from 'react';
 import styled from 'styled-components';
 import DeleteForeverIcon from '@material-ui/icons/DeleteForever';
 
-const PlaylistItems = ({songOrder, title, id, setPlaylists, currentIdPlaylist}) => {
+const PlaylistItems = ({title, idWhenDuplicate, setPlaylists, currentIdPlaylist}) => {
 
     return (
         <PlaylistItemWrapper>
             <span>{title} <DeleteForeverIcon onClick={() => {
                 setPlaylists((prevState) => {
-                    // return prevState.map(item => {
-                    //     if (item.id === currentIdPlaylist) {
-                    //         item.songs = item.songs.filter((song, index) => index !== songOrder)
-                    //     }
-                    //     return item;
-                    // })
                     const newState = prevState.map(item => {
                         if (item.id === currentIdPlaylist) {
-                            const filteredSongsInPlaylist = item.songs.filter(item => item.id !== id)
+                            const filteredSongsInPlaylist = item.songs.filter(item => item.idWhenDuplicate !== idWhenDuplicate)
                             return {
                                 ...item,
                                 songs: [
@@ -26,6 +20,7 @@ const PlaylistItems = ({songOrder, title, id, setPlaylists, currentIdPlaylist}) 
                         }
                         return item
                     })
+
                     localStorage.setItem("playlists", JSON.stringify(newState));
                     return newState;
                 })

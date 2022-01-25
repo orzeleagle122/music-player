@@ -2,6 +2,7 @@ import React, {useEffect} from 'react';
 import ReactDOM from "react-dom";
 import styled from 'styled-components';
 import CloseIcon from '@mui/icons-material/Close';
+import {v4 as uuidv4} from 'uuid';
 
 const modalContainer = document.getElementById('modal-container')
 
@@ -39,7 +40,7 @@ const Modal = ({handleCloseModal, playlists, setPlaylists, selectedSong}) => {
                                                     ...i,
                                                     songs: [
                                                         ...i.songs,
-                                                        ...selectedSong
+                                                        ...selectedSong.map(v => ({...v, idWhenDuplicate: uuidv4()}))
                                                     ]
                                                 };
                                             }
@@ -95,9 +96,9 @@ const ModalWrapper = styled.div`
   overflow: auto;
   background-color: ${({theme}) => theme.body};
 
-  @media only screen and (max-width: 600px){
+  @media only screen and (max-width: 600px) {
     width: 100%;
-    height: 100%;    
+    height: 100%;
   }
 `;
 
@@ -121,7 +122,7 @@ const PlaylistWrapper = styled.div`
     :hover {
       background-color: ${({theme}) => theme.toggleBorder};
       font-weight: bold;
-    }ó
+    }
   }
 `;
 
@@ -138,7 +139,7 @@ const CloseButton = styled.button`
   top: 20px;
   right: 20px;
 
-  @media only screen and (max-width: 600px){
+  @media only screen and (max-width: 600px) {
     width: 35px;
     height: 35px;
   }
