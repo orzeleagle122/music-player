@@ -13,4 +13,8 @@ export const GlobalStyle = createGlobalStyle`
   svg {
     background-color: inherit;
   }
+  
+  .__react-alert__ {
+    width: 1000px;
+  }
 `;

@@ -7,8 +7,8 @@ const Navbar = ({theme,themeToggler}) => {
     return (
         <NavbarWrapper>
             <Container>
-                <img src={`https://www.pgs-soft.com/app/themes/pgstemplate/img/new_img/logos/pgs-logo-dark.png`}
-                     alt={`logo`}/>
+                {/*<img src={`https://www.pgs-soft.com/app/themes/pgstemplate/img/new_img/logos/pgs-logo-dark.png`}*/}
+                {/*     alt={`logo`}/>*/}
                 <Wrapper onClick={themeToggler}>
                 {theme==='light'?<FlashlightOffIcon/>:<FlashlightOnIcon/>}
                 </Wrapper>

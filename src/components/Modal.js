@@ -3,12 +3,14 @@ import ReactDOM from "react-dom";
 import styled from 'styled-components';
 import CloseIcon from '@mui/icons-material/Close';
 import {v4 as uuidv4} from 'uuid';
+import {useAlert} from 'react-alert'
 
 const modalContainer = document.getElementById('modal-container')
 
 const Modal = ({handleCloseModal, playlists, setPlaylists, selectedSong}) => {
 
     const modalNode = document.createElement('div');
+    const alert = useAlert();
 
     useEffect(() => {
 
@@ -50,6 +52,7 @@ const Modal = ({handleCloseModal, playlists, setPlaylists, selectedSong}) => {
                                         return newState;
                                     });
                                     handleCloseModal();
+                                    alert.success('Sound added to playlist!');
                                 }}
                             >
                         {item.name}
