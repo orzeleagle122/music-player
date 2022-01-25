@@ -97,6 +97,7 @@ const SongWrapper = styled.div`
     @media screen and (max-width: 600px) {
         height: 300px;
         width: 90%;
+        margin-bottom: 40px;
     }
 `;
 
