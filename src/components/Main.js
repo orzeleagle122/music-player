@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import Right from "./Right";
-import Left from "./Left";
-import Modal from "./Modal";
+import Right from './Right';
+import Left from './Left';
+import Modal from './Modal';
 
 const Main = () => {
     const [playlists, setPlaylists] = useState([]);
@@ -10,33 +10,29 @@ const Main = () => {
     const [selectedSong, setSelectedSong] = useState([]);
     const [isOpenModal, setIsOpenModal] = useState(false);
     const [isLoading, setIsLoading] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
+    const [errorMessage, setErrorMessage] = useState('');
 
     useEffect(() => {
         try {
-            const savedPlaylist = localStorage.getItem("playlists");
+            const savedPlaylist = localStorage.getItem('playlists');
             if (savedPlaylist) setPlaylists(JSON.parse(savedPlaylist));
         } catch (e) {
             console.log(e);
         }
-
-    }, [])
+    }, []);
 
     return (
         <MainWrapper>
-            {isOpenModal
-                ? <Modal
+            {isOpenModal ? (
+                <Modal
                     handleCloseModal={() => setIsOpenModal(false)}
                     playlists={playlists}
                     selectedSong={selectedSong}
                     setPlaylists={setPlaylists}
                 />
-                : null}
+            ) : null}
             <Container>
-                <Left
-                    playlists={playlists}
-                    setPlaylists={setPlaylists}
-                />
+                <Left playlists={playlists} setPlaylists={setPlaylists} />
                 <Right
                     searchedSong={searchedSong}
                     selectedSong={selectedSong}
@@ -58,27 +54,24 @@ const Main = () => {
 export default Main;
 
 const MainWrapper = styled.main`
-  display: flex;
-  justify-content: center;
-  align-items: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 `;
 
 const Container = styled.div`
-  max-width: 1300px;
-  width: 100%;
-  display: flex;
-  margin-top: 50px;
-  justify-content: space-between;
+    max-width: 1300px;
+    width: 100%;
+    display: flex;
+    margin-top: 50px;
+    justify-content: space-between;
 
-  @media screen and (max-width: 1000px) {
+    @media screen and (max-width: 1000px) {
+    }
 
-  }
-
-  @media only screen and (max-width: 600px) {
-    flex-direction: column;
-    align-items: center;
-    gap: 30px;
-  }
+    @media only screen and (max-width: 600px) {
+        flex-direction: column;
+        align-items: center;
+        gap: 30px;
+    }
 `;
-
-

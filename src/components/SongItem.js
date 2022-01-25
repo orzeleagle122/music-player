@@ -1,32 +1,37 @@
-import React, {useState} from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 
-const SongItem = ({song, setSelectedSong}) => {
+const SongItem = ({ song, setSelectedSong }) => {
     const [checked, setChecked] = useState(false);
 
     return (
         <SongItemWrapper>
-            <input type="checkbox" name={`${song.id}-${song.title}`} id={`${song.id}-${song.title}`}
-                   value={`${song.id}-${song.title}`}
-                   checked={checked}
-                   onChange={e => {
-                       setChecked(prevState => !prevState);
-                       setSelectedSong(prevState => {
-                           if (!checked) return [...prevState, song];
-                           if (checked) {
-                               const newState = prevState.filter(item => item.id !== song.id);
-                               return [...newState];
-                           }
-                       })
-                   }}/>
+            <input
+                type="checkbox"
+                name={`${song.id}-${song.title}`}
+                id={`${song.id}-${song.title}`}
+                value={`${song.id}-${song.title}`}
+                checked={checked}
+                onChange={(e) => {
+                    setChecked((prevState) => !prevState);
+                    setSelectedSong((prevState) => {
+                        if (!checked) return [...prevState, song];
+                        if (checked) {
+                            const newState = prevState.filter(
+                                (item) => item.id !== song.id
+                            );
+                            return [...newState];
+                        }
+                    });
+                }}
+            />
             <label htmlFor={`${song.id}-${song.title}`}>
-                <img src={song.album.cover_medium} alt={`album`}/>
+                <img src={song.album.cover_medium} alt={`album`} />
                 <SongInfo>
                     <span>{song.title}</span>
                     <span>{song.artist.name}</span>
                 </SongInfo>
             </label>
-
         </SongItemWrapper>
     );
 };
@@ -44,7 +49,7 @@ const SongItemWrapper = styled.div`
   transition: 0.25s;
 
   &:hover {
-    background-color: ${({theme}) => theme.toggleBorder};
+    background-color: ${({ theme }) => theme.toggleBorder};
     font-weight: bold;
   }
 }
@@ -75,12 +80,12 @@ input[type="checkbox"], input[type="checkbox"]:checked {
 `;
 
 const SongInfo = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-size: 12px;
-  background-color: inherit;
-
-  span {
+    display: flex;
+    flex-direction: column;
+    font-size: 12px;
     background-color: inherit;
-  }
+
+    span {
+        background-color: inherit;
+    }
 `;
